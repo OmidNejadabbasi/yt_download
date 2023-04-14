@@ -186,6 +186,7 @@ class _YoutubeLinkExtractorDialogState
                         ],
                       ),
                       ...List.generate(state.links.length, (index) {
+                        var link = state.links[index];
                         return Row(
                           children: [
                             Radio(
@@ -195,7 +196,7 @@ class _YoutubeLinkExtractorDialogState
                                 if (val == null) return;
                                 selectedLinkInd = index;
                                 setState(() {
-                                  selectedItem = state.links[index];
+                                  selectedItem = link;
                                 });
                               },
                               materialTapTargetSize:
@@ -203,7 +204,7 @@ class _YoutubeLinkExtractorDialogState
                             ),
                             Expanded(
                               child: Text(
-                                '${state.links[index].format.toUpperCase()} ${state.links[index].quality} ${state.links[index].fps}',
+                                '${link.isAudio ? "Audio (MP3)" : link.format.toUpperCase()} ${link.isAudio ? '' : link.quality} ${link.isAudio ? '' : link.fps}',
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),

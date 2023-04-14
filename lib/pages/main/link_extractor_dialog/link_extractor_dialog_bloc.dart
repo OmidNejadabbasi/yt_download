@@ -48,6 +48,25 @@ class LinkExtractorDialogBloc {
         var manifest = await yt.videos.streamsClient.getManifest(videoId);
 
         List<DownloadItemEntity> linksList = [];
+        var audioLink = manifest.audioOnly[0];
+        if (audioLink != null) {
+          linksList.add(DownloadItemEntity(
+            link: audioLink.url.toString(),
+            thumbnailLink: video.thumbnails.mediumResUrl,
+            isAudio: true,
+            fps: "0 FPS",
+            format: audioLink.container.toString(),
+            title: video.title,
+            duration: video.duration?.inSeconds ?? 0,
+            quality: audioLink.qualityLabel
+                .toString()
+                .replaceAll(RegExp('[A-Za-z.]+'), '') +
+                "p",
+            taskId: 0,
+            status: DownloadTaskStatus.undefined.value,
+            streamTag: audioLink.tag,
+            videoId: videoId.value));
+        }
         for (var item in manifest.muxed) {
           linksList.add(DownloadItemEntity(
               link: item.url.toString(),

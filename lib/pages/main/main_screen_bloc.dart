@@ -76,7 +76,7 @@ class MainScreenBloc {
             evt.entity.title.replaceAll(RegExp(r'[/|<>*\?":]+'), "-") +
                 "-" +
                 evt.entity.fps +
-                '.mp4';
+                (evt.entity.isAudio ? '.mp3' : '.mp4');
         int counter = 1;
         while (File(appSettings.value.saveDir + "/" + fileName).existsSync()) {
           fileName = evt.entity.title.replaceAll(RegExp(r'[/|<>*\?":]'), "-") +
@@ -127,7 +127,10 @@ class MainScreenBloc {
           .indexWhere((element) => element.taskId == updatedItem.id);
       if (updatedItem.status.value > 6) return;
       if (index >= 0) {
-        print("item status " + updatedItem.downloaded.toString() + " code: " + updatedItem.status.value.toString());
+        print("item status " +
+            updatedItem.downloaded.toString() +
+            " code: " +
+            updatedItem.status.value.toString());
         updateItemInDbAndList(index, updatedItem);
       } else {
         print("id not found");
@@ -201,12 +204,13 @@ class MainScreenBloc {
       _mainScreenStateSubject.add(MainScreenState(
         observableItemList: observableItemList,
       ));
-    } else if (_permissionReady == 1){
+    } else if (_permissionReady == 1) {
       _mainScreenStateSubject.add(
         PermissionNotGrantedState(message: "Storage Permission not granted"),
       );
     } else {
-      _mainScreenStateSubject.add(PermissionDeniedState(message: "You have to give permission in settings"));
+      _mainScreenStateSubject.add(PermissionDeniedState(
+          message: "You have to give permission in settings"));
     }
   }
 
@@ -218,7 +222,7 @@ class MainScreenBloc {
     if (Platform.isAndroid && androidInfo.version.sdkInt <= 33) {
       final status = await Permission.manageExternalStorage.status;
       print(status);
-      if (status == PermissionStatus.denied ) {
+      if (status == PermissionStatus.denied) {
         final result = await Permission.storage.request();
         print("Permission result   " + result.toString());
         if (result == PermissionStatus.granted) {

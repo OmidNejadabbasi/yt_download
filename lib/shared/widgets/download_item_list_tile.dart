@@ -92,7 +92,7 @@ class DownloadItemListTile extends StatelessWidget {
                       Container(
                         padding: const EdgeInsets.all(2),
                         child: Text(
-                          downloadItem.format.toUpperCase(),
+                          downloadItem.isAudio?"MP3":downloadItem.format.toUpperCase(),
                           style: const TextStyle(
                               color: Colors.white, fontSize: 12),
                         ),
@@ -103,7 +103,7 @@ class DownloadItemListTile extends StatelessWidget {
                       ),
                       const SizedBox(width: 4),
                       Text(
-                        downloadItem.quality,
+                        downloadItem.isAudio?"🎧 Audio":downloadItem.quality,
                         style: Styles.labelTextStyle,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
@@ -121,7 +121,7 @@ class DownloadItemListTile extends StatelessWidget {
                                 : status == DownloadTaskStatus.failed.value
                                     ? 'Disconnected'
                                     : 'Waiting in queue',
-                            style: Styles.labelTextStyle,
+                            style: Styles.labelTextStyle.copyWith(fontSize: 12),
                           ),
                         ),
                       ),
