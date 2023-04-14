@@ -11,7 +11,7 @@ void main() async {
   // await FlutterDownloader.initialize(
   //     debug: true // optional: set false to disable printing logs to console
   // );
-  Fetchme.initialize(concurrentDownloads: 10, progressInterval: 1000);
+  Fetchme.initialize(concurrentDownloads: 3, progressInterval: 800);
   runApp(const MyApp());
 }
 

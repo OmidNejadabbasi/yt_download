@@ -59,7 +59,21 @@ class AboutPage extends StatelessWidget {
                               ..onTap = () async {
                                 const mailUrl = 'mailto:nejadabbasio@gmail.com';
                                 try {
-                                  await launch(mailUrl);
+                                  await launchUrl(Uri.parse(mailUrl));
+                                } catch (e) {
+                                  await Clipboard.setData(const ClipboardData(
+                                      text: 'nejadabbasio@gmail.com'));
+                                }
+                              }),
+                        const TextSpan(text: '\nLinkedIn: '),
+                        TextSpan(
+                            text: 'Omid Nejadabbasi profile',
+                            style: const TextStyle(color: Colors.blue),
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () async {
+                                const linkedInUrl = 'https://www.linkedin.com/in/omid-nejadabbasi-838135189/';
+                                try {
+                                  await launchUrl(Uri.parse(linkedInUrl));
                                 } catch (e) {
                                   await Clipboard.setData(const ClipboardData(
                                       text: 'nejadabbasio@gmail.com'));
