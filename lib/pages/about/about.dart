@@ -53,16 +53,16 @@ class AboutPage extends StatelessWidget {
                       children: <TextSpan>[
                         const TextSpan(text: 'Email: '),
                         TextSpan(
-                            text: 'nejadabbasio@gmail.com',
+                            text: 'omidntech@gmail.com',
                             style: const TextStyle(color: Colors.blue),
                             recognizer: TapGestureRecognizer()
                               ..onTap = () async {
-                                const mailUrl = 'mailto:nejadabbasio@gmail.com';
+                                const mailUrl = 'mailto:omidntech@gmail.com';
                                 try {
                                   await launchUrl(Uri.parse(mailUrl));
                                 } catch (e) {
                                   await Clipboard.setData(const ClipboardData(
-                                      text: 'nejadabbasio@gmail.com'));
+                                      text: 'omidntech@gmail.com'));
                                 }
                               }),
                         const TextSpan(text: '\nLinkedIn: '),
